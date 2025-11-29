@@ -142,6 +142,7 @@ class ApiClient
      * @param $homeurl
      * @param $cashierurl
      * @param $lang
+     * @param string|null $branded
      * @return mixed
      * @throws Exception
      */
@@ -150,18 +151,26 @@ class ApiClient
         $currency,
         $homeurl,
         $cashierurl,
-        $lang
+        $lang,
+        $branded = null
     ) {
-        $response = $this->sendRequest('post', 'getGameDemo', [
-            'gameid' => $game_id,
-            'homeurl' => $homeurl,
+        $data = [
+            'gameid'     => $game_id,
+            'homeurl'    => $homeurl,
             'cashierurl' => $cashierurl,
-            'lang' => $lang,
-            'currency' => strtoupper($currency),
-        ]);
+            'lang'       => $lang,
+            'currency'   => strtoupper($currency),
+        ];
+
+        if ($branded !== null && $branded !== '') {
+            $data['branded'] = (string) $branded;
+        }
+
+        $response = $this->sendRequest('post', 'getGameDemo', $data);
+
         return $response->getBody();
     }
-
+    
     /**
      * Deactivates all active free rounds for a player
      *
@@ -206,6 +215,7 @@ class ApiClient
         return $response->getBody();
     }
     
+
     /**
      * Creates a game session, return game URL you serve to your players.
      *
@@ -217,6 +227,7 @@ class ApiClient
      * @param $cashierurl
      * @param int $play_for_fun
      * @param $lang
+     * @param string|null $branded
      * @return mixed
      * @throws Exception
      */
@@ -228,21 +239,30 @@ class ApiClient
         $homeurl,
         $cashierurl,
         int $play_for_fun,
-        $lang
+        $lang,
+        $branded = null
     ) {
         if ($play_for_fun > 1) {
             throw new Exception("play_for_fun should be 0 or 1 integer");
         }
-        $response = $this->sendRequest('post', 'getGame', [
+
+        $data = [
             'user_username' => $username,
             'user_password' => $userpassword,
-            'gameid' => $game_id,
-            'homeurl' => $homeurl,
-            'cashierurl' => $cashierurl,
-            'play_for_fun' => (int) $play_for_fun,
-            'lang' => $lang,
-            'currency' => strtoupper($currency),
-        ]);
+            'gameid'        => $game_id,
+            'homeurl'       => $homeurl,
+            'cashierurl'    => $cashierurl,
+            'play_for_fun'  => (int) $play_for_fun,
+            'lang'          => $lang,
+            'currency'      => strtoupper($currency),
+        ];
+
+        if ($branded !== null && $branded !== '') {
+            $data['branded'] = (string) $branded;
+        }
+
+        $response = $this->sendRequest('post', 'getGame', $data);
+
         return $response->getBody();
     }
     
