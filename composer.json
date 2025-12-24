@@ -1,10 +1,10 @@
 {
-    "name": "spinshield/spinclient",
+    "name": "slotsgateway/slotsgateway-php-client",
     "license": "MIT",
-    "homepage": "https://github.com/spinshield",
+    "homepage": "https://github.com/slotsgateway",
     "authors": [
         {
-            "name": "spinclient",
+            "name": "slotsgateway-php-client",
             "email": "contact@spinshield.net"
         }
     ],
