@@ -20,7 +20,7 @@ The client can be used in any PHP-based project or framework, including **Larave
 Install the package via Composer:
 
 ```bash
-composer require slotsgateway/slotsgateway
+composer require slotsgateway/slotsgateway-php-client
 ```
 
 ---
